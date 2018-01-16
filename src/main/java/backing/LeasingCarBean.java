@@ -19,16 +19,16 @@ import dto.Customerdto;
 public class LeasingCarBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private WebTarget leasingCarTarget = ClientBuilder.newClient().target("localhost:8080/leasingcarbackend/leasingcar");
+	private WebTarget leasingCarTarget = ClientBuilder.newClient().target("http://localhost:8080/leasingcarbackend/leasingcar");
 	
 	public LeasingCarBean() {}
 
 	public List<Cardto> getCarList() {
-		return leasingCarTarget.path("/carlist").request(MediaType.APPLICATION_JSON).get(new GenericType<List<Cardto>>() {});
+		return leasingCarTarget.path("/carList").request(MediaType.APPLICATION_JSON).get(new GenericType<List<Cardto>>() {});
 	}
 
 	public List<Customerdto> getCustomerList() {
-		return leasingCarTarget.path("/customerlist").request(MediaType.APPLICATION_JSON).get(new GenericType<List<Customerdto>>() {});
+		return leasingCarTarget.path("/customerList").request(MediaType.APPLICATION_JSON).get(new GenericType<List<Customerdto>>() {});
 	}
 
 	public List<Cardto> getAvailableCarsList() {

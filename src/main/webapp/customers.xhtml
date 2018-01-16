@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Customers</title>
+    </h:head>
+    <h:body><h:form>
+        <b:container>
+            <b:row>
+                <b:column>
+                    
+					  <b:dataTable value="#{leasingCarBean.customerList}"
+					               var="customer" id="customerTable">
+					    <b:dataTableColumn value="#{customer.firstname}" />
+					    <b:dataTableColumn value="#{customer.lastname}" />
+					    <b:dataTableColumn value="#{customer.address}" />
+					    <b:dataTableColumn value="#{customer.phonenumber}" />
+					  </b:dataTable>
+					  
+					
+                </b:column>
+            </b:row>
+        </b:container>
+    </h:form></h:body>
+</html>
+                 	
+	
+					  
