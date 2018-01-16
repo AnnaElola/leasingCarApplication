@@ -13,6 +13,7 @@ import javax.ws.rs.client.ClientBuilder;
 import dto.Cardto;
 import dto.Customerdto;
 
+
 @Named
 @ViewScoped
 public class LeasingCarBean implements Serializable{
