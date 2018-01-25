@@ -29,7 +29,9 @@ public class Cardto {
 	@XmlElement
 	private boolean isleased;
 	
-	public Cardto() {}
+	public Cardto() {
+		isleased = false;
+	}
 	
 	public Cardto(String licensenumber, String brand, String model, String color, int year, boolean isleased) {
 		this.licensenumber = licensenumber;

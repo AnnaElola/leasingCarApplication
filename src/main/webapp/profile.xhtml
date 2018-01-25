@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Profile</title>
+    </h:head>
+    <h:body><h:form>
+        <b:container>
+            <b:row>
+             <b:navBar brand="LeasingCar" brandHref="./index.xhtml" fluid="true">
+ 				<b:navbarLinks>
+				    <b:navLink value="Profile" href="#"></b:navLink>
+				    <b:navLink value="My cars" href="./myCars.xhtml"></b:navLink>
+				    <b:navLink value="Available cars" href="./availableCars.xhtml"></b:navLink>
+						<b:navLink value="All cars" href="admin/allCars.xhtml"
+							rendered="#{request.isUserInRole('admin')}"></b:navLink>
+						<b:navLink value="All customers" href="admin/customers.xhtml"
+							rendered="#{request.isUserInRole('admin')}"></b:navLink>
+					</b:navbarLinks>
+			    <b:commandButton value="Sign out" look="primary" action="#{helperBean.logout()}" class="navbar-right"/>
+		    </b:navBar>
+                    
+            <h2>#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).firstname}s profile</h2>
+            
+            <h4>Firstname</h4>
+            <h:outputLabel>#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).firstname}</h:outputLabel>
+            
+            <h4>Lastname</h4>
+            <h:outputLabel>#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).lastname}</h:outputLabel>
+            
+            <h4>Address</h4>
+            <h:outputLabel>#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).address}</h:outputLabel>
+            
+            <h4>Phonenumber</h4>
+            <h:outputLabel>#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).phonenumber}</h:outputLabel>
+            
+            <h4>E-mail</h4>
+            <h:outputLabel>#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).email}</h:outputLabel>
+			<b:row>
+				<b:button size="lg" look="info" value="Change"
+					onclick="$('.modalPseudoClass').modal()"
+					 />
+			</b:row>
+				<b:modal id="amodal" title="Change information"
+					styleClass="modalPseudoClass">
+					<h:form>
+						<b:inputText placeholder="Firstname"
+							value="#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).firstname}" />
+						<b:inputText placeholder="Lastname"
+							value="#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).lastname}" />
+						<b:inputText placeholder="Address"
+							value="#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).address}" />
+						<b:inputText placeholder="Phonenumber"
+							value="#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).phonenumber}" />
+					</h:form>
+					<f:facet name="footer">
+						<b:button value="Close" dismiss="modal" />
+						<b:commandButton value="Change" look="primary"
+							onclick="$('.modalPseudoClass').modal('hide');ajax:leasingCarBean.updateCustomer(request.getRemoteUser())" />
+					</f:facet>
+				</b:modal>
+
+            </b:row>
+        </b:container>
+    </h:form></h:body>
+</html>
+        

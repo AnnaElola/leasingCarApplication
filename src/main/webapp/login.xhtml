@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Login</title>
+    </h:head>
+    <h:body style="padding-top: 40px;">
+		<div class="container" align="center">
+		
+			<h2 class="form-signin-heading">Hello, please log in:</h2>
+        		<form method="post" action="j_security_check" >
+				<div>
+					<h:outputLabel value="Username" />		
+					<input type="text" name="j_username" id="j_username"/>
+				</div>
+				<div>
+					<h:outputLabel value="Password" />
+					<input type="password" name="j_password" id="j_password"/>
+				</div>
+				
+            		<input type="submit" value="#{bundle['login.submit']}" /> 
+            
+        		</form>
+	     </div>
+  </h:body>
+</html>

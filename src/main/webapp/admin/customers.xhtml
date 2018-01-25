@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Customers</title>
+</h:head>
+<h:body>
+	<h:form>
+		<b:container>
+			<b:row>
+				<b:navBar brand="LeasingCar" brandHref="../index.xhtml" fluid="true">
+					<b:navbarLinks>
+						<b:navLink value="Profile" href="../profile.xhtml"></b:navLink>
+						<b:navLink value="My cars" href="../myCars.xhtml"></b:navLink>
+						<b:navLink value="Available cars" href="../availableCars.xhtml"></b:navLink>
+						<b:navLink value="All cars" href="./allCars.xhtml"
+							rendered="#{request.isUserInRole('admin')}"></b:navLink>
+						<b:navLink value="All customers" href="./customers.xhtml"
+							rendered="#{request.isUserInRole('admin')}"></b:navLink>
+					</b:navbarLinks>
+					<b:commandButton value="Sign out" look="primary"
+						action="#{helperBean.logout()}" class="navbar-right" />
+				</b:navBar>
+
+				<h2>All customers</h2>
+
+				<b:dataTable value="#{leasingCarBean.customerList}" var="customer"
+					id="customerTable">
+					<b:dataTableColumn value="#{customer.firstname}" />
+					<b:dataTableColumn value="#{customer.lastname}" />
+					<b:dataTableColumn value="#{customer.address}" />
+					<b:dataTableColumn value="#{customer.phonenumber}" />
+					<b:dataTableColumn label="Delete">
+						<b:commandButton icon="remove-circle" onclick="ajax:leasingCarBean.deleteCustomer(customer.customerid)" 
+						oncomplete="javascript:location.reload();" update="customerTable" immediate="true"/>
+					</b:dataTableColumn>
+				</b:dataTable>
+
+				<b:button size="lg" look="info" value="New customer"
+					onclick="$('.modalPseudoClass').modal()" />
+
+				<b:modal id="amodal" title="New customer" styleClass="modalPseudoClass">
+					<h:form>
+						<b:inputText placeholder="Firstname"
+							value="#{leasingCarBean.newCustomer.firstname}" required="true"/>
+						<b:inputText placeholder="Lastname"
+							value="#{leasingCarBean.newCustomer.lastname}" required="true"/>
+						<b:inputText placeholder="Address"
+							value="#{leasingCarBean.newCustomer.address}" />
+						<b:inputText placeholder="Phonenumber"
+							value="#{leasingCarBean.newCustomer.phonenumber}" />
+						<b:inputText placeholder="Email"
+							value="#{leasingCarBean.newCustomer.email}" required="true"/>
+						<b:inputText placeholder="Password"
+							value="#{leasingCarBean.newCustomer.password}" required="true"/>
+					</h:form>
+					<f:facet name="footer">
+						<b:button value="Close" dismiss="modal" />
+						<b:commandButton value="Add" look="primary" 
+							onclick="$('.modalPseudoClass').modal('hide');ajax:leasingCarBean.postNewCustomer()" update="customerTable" />
+					</f:facet>
+				</b:modal>
+
+			</b:row>
+		</b:container>
+	</h:form>
+</h:body>
+</html>
+
+

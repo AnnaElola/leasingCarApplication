@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+	
+<h:head>
+	<title>All cars</title>
+</h:head>
+<h:body>
+	<h:form>
+		<b:container>
+			<b:row>
+				<b:navBar brand="LeasingCar" brandHref="../index.xhtml" fluid="true">
+					<b:navbarLinks>
+						<b:navLink value="Profile" href="../profile.xhtml"></b:navLink>
+						<b:navLink value="My cars" href="../myCars.xhtml"></b:navLink>
+						<b:navLink value="Available cars" href="../availableCars.xhtml"></b:navLink>
+						<b:navLink value="All cars" href="./allCars.xhtml"
+							rendered="#{request.isUserInRole('admin')}"></b:navLink>
+						<b:navLink value="All customers" href="./customers.xhtml"
+							rendered="#{request.isUserInRole('admin')}"></b:navLink>
+					</b:navbarLinks>
+					<b:commandButton value="Sign out" look="primary"
+						action="#{helperBean.logout()}" class="navbar-right" />
+				</b:navBar>
+
+				<h2>All cars</h2>
+
+				<b:dataTable value="#{leasingCarBean.carList}" var="car"
+					id="carsTable">
+					<b:dataTableColumn value="#{car.licensenumber}" />
+					<b:dataTableColumn value="#{car.brand}" />
+					<b:dataTableColumn value="#{car.model}" />
+					<b:dataTableColumn value="#{car.color}" />
+					<b:dataTableColumn value="#{car.year}" />
+					<b:dataTableColumn label="Delete">
+						<b:commandButton icon="trash" onclick="ajax:leasingCarBean.deleteCar(car.licensenumber)" 
+						oncomplete="javascript:location.reload();" update="carsTable" immediate="true"/>
+					</b:dataTableColumn>
+					<b:dataTableColumn label="Stop lease">
+						<b:commandButton icon="remove-circle" onclick="ajax:leasingCarBean.stopLease(car.licensenumber)" 
+						oncomplete="javascript:location.reload();" update="carsTable"
+						rendered="#{car.isleased}" immediate="true"/>
+					</b:dataTableColumn>
+				</b:dataTable>
+
+
+				<b:button size="lg" look="info" value="New car" 
+					onclick="$('.modalPseudoClass').modal()" />
+
+				<b:modal id="amodal" title="New car" styleClass="modalPseudoClass">
+					<h:form>
+						<b:inputText placeholder="Licensenumber"
+							value="#{leasingCarBean.newCar.licensenumber}" required="true"/>
+						<b:inputText placeholder="Brand"
+							value="#{leasingCarBean.newCar.brand}" required="true"/>
+						<b:inputText placeholder="Model"
+							value="#{leasingCarBean.newCar.model}" required="true"/>
+						<b:inputText placeholder="Color"
+							value="#{leasingCarBean.newCar.color}" />
+						<b:inputText placeholder="Year"
+							value="#{leasingCarBean.newCar.year}" required="true"/>
+					</h:form>
+					<f:facet name="footer">
+						<b:button value="Close" dismiss="modal" />
+						<b:commandButton value="Add" look="primary"
+							onclick="$('.modalPseudoClass').modal('hide');ajax:leasingCarBean.postNewCar()"  update="carsTable"/>
+					</f:facet>
+				</b:modal>
+			</b:row>
+		</b:container>
+		
+		
+	</h:form>
+</h:body>
+</html>

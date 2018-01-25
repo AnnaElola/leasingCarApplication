@@ -1,16 +1,34 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Welcome</title>
+    </h:head>
+    <h:body><h:form>
+        <b:container>
+            <b:row>
+             <b:navBar brand="LeasingCar" brandHref="#" fluid="true">
+ 				<b:navbarLinks>
+				    <b:navLink value="Profile" href="./profile.xhtml"></b:navLink>
+				    <b:navLink value="My cars" href="./myCars.xhtml"></b:navLink>
+				    <b:navLink value="Available cars" href="./availableCars.xhtml"></b:navLink>
+						<b:navLink value="All cars" href="admin/allCars.xhtml"
+							rendered="#{request.isUserInRole('admin')}"></b:navLink>
+						<b:navLink value="All customers" href="admin/customers.xhtml"
+							rendered="#{request.isUserInRole('admin')}"></b:navLink>
+					</b:navbarLinks>
+			    <b:commandButton value="Sign out" look="primary" action="#{helperBean.logout()}" class="navbar-right"/>
+		    </b:navBar>
+                    
+            <h2> Welcome to Leasing Car #{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).firstname}!</h2>
+            
 
-	<!-- Vi petar in en tom <h:head> så att JSF/Primefaces kan skjuta in javascript och css. -->
-	<h:head></h:head>
-	<!-- För att AJAX ska funka måste JSF-prylar ligga i en <form>. -->
-	<h:body><h:form>
-
-	<h:outputLabel>Hello</h:outputLabel>
-	</h:form></h:body>
+            </b:row>
+        </b:container>
+    </h:form></h:body>
 </html>
+                 	
+	

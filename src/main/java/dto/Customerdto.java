@@ -30,15 +30,23 @@ public class Customerdto {
 	private String phonenumber;
 	
 	@XmlElement
+	private String email;
+	
+	@XmlElement
+	private String password;
+	
+	@XmlElement
 	private List<Cardto> cars;
 
 	public Customerdto() {}
 	
-	public Customerdto(String firstname, String lastname, String address, String phonenumber) {
+	public Customerdto(String firstname, String lastname, String address, String phonenumber, String email, String password) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.address = address;
 		this.phonenumber = phonenumber;
+		this.email = email;
+		this.password = password;
 	}
 
 	public int getCustomerid() {
@@ -88,6 +96,24 @@ public class Customerdto {
 	public void setCars(List<Cardto> cars) {
 		this.cars = cars;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
 	
 	
 }
