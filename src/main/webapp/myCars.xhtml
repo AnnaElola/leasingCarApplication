@@ -27,6 +27,8 @@
 
 				<h2>Your leased cars</h2>
 
+				<hr></hr>
+				
 				<b:dataTable value="#{leasingCarBean.getCustomersCarsList(leasingCarBean.getCustomerByUsername(request.getRemoteUser()).customerid)}" 
 					var="car" id="customerCarsTable">
 					<b:dataTableColumn value="#{car.licensenumber}" />

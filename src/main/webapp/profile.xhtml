@@ -7,12 +7,12 @@
     <h:head>
         <title>Profile</title>
     </h:head>
-    <h:body><h:form>
+    <h:body onload="#{leasingCarBean.createThisCustomer(request.getRemoteUser())}"><h:form>
         <b:container>
             <b:row>
              <b:navBar brand="LeasingCar" brandHref="./index.xhtml" fluid="true">
  				<b:navbarLinks>
-				    <b:navLink value="Profile" href="#"></b:navLink>
+				    <b:navLink value="Profile" href="./profile.xhtml"></b:navLink>
 				    <b:navLink value="My cars" href="./myCars.xhtml"></b:navLink>
 				    <b:navLink value="Available cars" href="./availableCars.xhtml"></b:navLink>
 						<b:navLink value="All cars" href="admin/allCars.xhtml"
@@ -24,6 +24,8 @@
 		    </b:navBar>
                     
             <h2>#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).firstname}s profile</h2>
+            
+            <hr></hr>
             
             <h4>Firstname</h4>
             <h:outputLabel>#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).firstname}</h:outputLabel>
@@ -39,6 +41,9 @@
             
             <h4>E-mail</h4>
             <h:outputLabel>#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).email}</h:outputLabel>
+            
+            <hr></hr>
+            
 			<b:row>
 				<b:button size="lg" look="info" value="Change"
 					onclick="$('.modalPseudoClass').modal()"
@@ -48,18 +53,19 @@
 					styleClass="modalPseudoClass">
 					<h:form>
 						<b:inputText placeholder="Firstname"
-							value="#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).firstname}" />
+							value="#{leasingCarBean.thisCustomer.firstname}" />
 						<b:inputText placeholder="Lastname"
-							value="#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).lastname}" />
+							value="#{leasingCarBean.thisCustomer.lastname}" />
 						<b:inputText placeholder="Address"
-							value="#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).address}" />
+							value="#{leasingCarBean.thisCustomer.address}" />
 						<b:inputText placeholder="Phonenumber"
-							value="#{leasingCarBean.getCustomerByUsername(request.getRemoteUser()).phonenumber}" />
+							value="#{leasingCarBean.thisCustomer.phonenumber}" />
 					</h:form>
 					<f:facet name="footer">
 						<b:button value="Close" dismiss="modal" />
 						<b:commandButton value="Change" look="primary"
-							onclick="$('.modalPseudoClass').modal('hide');ajax:leasingCarBean.updateCustomer(request.getRemoteUser())" />
+							onclick="$('.modalPseudoClass').modal('hide');ajax:leasingCarBean.updateCustomer()"
+							oncomplete="javascript:location.reload();"/>
 					</f:facet>
 				</b:modal>
 

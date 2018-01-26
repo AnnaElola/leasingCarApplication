@@ -24,6 +24,7 @@ public class LeasingCarBean implements Serializable{
 	
 	private Cardto newCar;
 	private Customerdto newCustomer;
+	private Customerdto thisCustomer;
 	
 	private WebTarget leasingCarTarget = ClientBuilder.newClient().target("http://localhost:8080/leasingcarbackend/leasingcar");
 	
@@ -33,6 +34,7 @@ public class LeasingCarBean implements Serializable{
 	public void init() {
 	    newCar = new Cardto();
 	    newCustomer = new Customerdto();
+	    thisCustomer = new Customerdto();
 	}
 	
 	public List<Cardto> getCarList() {
@@ -52,13 +54,11 @@ public class LeasingCarBean implements Serializable{
 	}
 	
 	public Customerdto getCustomerByUsername(String username) {
-		
 		return leasingCarTarget.path("/customerByUsername/{username}").resolveTemplate("username", username).request(MediaType.APPLICATION_JSON).get(new GenericType<Customerdto>() {});	
 	}
 	
-	public void updateCustomer(String username) {
-		Customerdto customer = getCustomerByUsername(username);
-		leasingCarTarget.path("/updateCustomer").request(MediaType.APPLICATION_JSON).post(Entity.json(customer));
+	public void updateCustomer() {
+		leasingCarTarget.path("/updateCustomer").request(MediaType.APPLICATION_JSON).post(Entity.json(thisCustomer));
 	}
 	
 	//Delete
@@ -88,10 +88,6 @@ public class LeasingCarBean implements Serializable{
 		leasingCarTarget.path("/newCar").request(MediaType.APPLICATION_JSON).post(Entity.json(newCar));
 		newCar = new Cardto();
 	}
-	
-	public void createNewCar() {
-		newCar = new Cardto();
-	}
 
 	public Cardto getNewCar() {
 		return newCar;
@@ -104,13 +100,19 @@ public class LeasingCarBean implements Serializable{
 		leasingCarTarget.path("/newCustomer").request(MediaType.APPLICATION_JSON).post(Entity.json(newCustomer));
 		newCustomer = new Customerdto();
 	}
-	
-	public void createNewCustomer() {
-		newCustomer = new Customerdto();
-	}
 
 	public Customerdto getNewCustomer() {
 		return newCustomer;
+	}
+	
+	//This customer (to help change customer information on profile.xhtml)
+	
+	public void createThisCustomer(String username) {
+		thisCustomer = getCustomerByUsername(username);
+	}
+	
+	public Customerdto getThisCustomer() {
+		return thisCustomer;
 	}
 	
 }
